@@ -1,0 +1,672 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 56;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		A10001000000000000000001 /* LeakFlowApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10002000000000000000001 /* LeakFlowApp.swift */; };
+		A10001000000000000000002 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10002000000000000000002 /* AppDelegate.swift */; };
+		A10001000000000000000003 /* HotkeyManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10002000000000000000003 /* HotkeyManager.swift */; };
+		A10001000000000000000004 /* AudioRecorder.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10002000000000000000004 /* AudioRecorder.swift */; };
+		A10001000000000000000005 /* WhisperTranscriber.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10002000000000000000005 /* WhisperTranscriber.swift */; };
+		A10001000000000000000006 /* TextOutputManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10002000000000000000006 /* TextOutputManager.swift */; };
+		A10001000000000000000007 /* MenuBarManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10002000000000000000007 /* MenuBarManager.swift */; };
+		A10001000000000000000008 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10002000000000000000008 /* SettingsView.swift */; };
+		A10001000000000000000009 /* HotkeyRecorderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10002000000000000000009 /* HotkeyRecorderView.swift */; };
+		A1000100000000000000000A /* RecordingIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1000200000000000000000A /* RecordingIndicator.swift */; };
+		A1000100000000000000000B /* AppSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1000200000000000000000B /* AppSettings.swift */; };
+		A1000100000000000000000C /* HotkeyBinding.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1000200000000000000000C /* HotkeyBinding.swift */; };
+		A1000100000000000000000D /* AudioRecording.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1000200000000000000000D /* AudioRecording.swift */; };
+		A1000100000000000000000E /* Transcribing.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1000200000000000000000E /* Transcribing.swift */; };
+		A1000100000000000000000F /* TextOutputting.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1000200000000000000000F /* TextOutputting.swift */; };
+		A10001000000000000000010 /* PermissionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10002000000000000000010 /* PermissionManager.swift */; };
+		A10001000000000000000011 /* ModelDownloader.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10002000000000000000011 /* ModelDownloader.swift */; };
+		A10001000000000000000012 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A10002000000000000000012 /* Assets.xcassets */; };
+		A10001000000000000000020 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A10002000000000000000020 /* AVFoundation.framework */; };
+		A10001000000000000000021 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A10002000000000000000021 /* CoreGraphics.framework */; };
+		A10001000000000000000030 /* WhisperCpp in Frameworks */ = {isa = PBXBuildFile; productRef = A10009000000000000000001 /* WhisperCpp */; };
+		B10001000000000000000001 /* LeakFlowTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10002000000000000000001 /* LeakFlowTests.swift */; };
+		A10001000000000000000040 /* RecordingPipeline.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10002000000000000000040 /* RecordingPipeline.swift */; };
+		B10001000000000000000010 /* MockAudioRecorder.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10002000000000000000010 /* MockAudioRecorder.swift */; };
+		B10001000000000000000011 /* MockTranscriber.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10002000000000000000011 /* MockTranscriber.swift */; };
+		B10001000000000000000012 /* MockTextOutputManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10002000000000000000012 /* MockTextOutputManager.swift */; };
+		B10001000000000000000020 /* HotkeyEventHandlerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10002000000000000000020 /* HotkeyEventHandlerTests.swift */; };
+		B10001000000000000000021 /* RecordingPipelineTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10002000000000000000021 /* RecordingPipelineTests.swift */; };
+		B10001000000000000000022 /* AppSettingsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10002000000000000000022 /* AppSettingsTests.swift */; };
+		B10001000000000000000023 /* TranscriberErrorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10002000000000000000023 /* TranscriberErrorTests.swift */; };
+		B10001000000000000000024 /* WhisperModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10002000000000000000024 /* WhisperModelTests.swift */; };
+		B10001000000000000000025 /* ModelDownloaderDataTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10002000000000000000025 /* ModelDownloaderDataTests.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		B10003000000000000000001 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = A10007000000000000000001 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = A10005000000000000000001;
+			remoteInfo = LeakFlow;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		A10002000000000000000001 /* LeakFlowApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeakFlowApp.swift; sourceTree = "<group>"; };
+		A10002000000000000000002 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		A10002000000000000000003 /* HotkeyManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HotkeyManager.swift; sourceTree = "<group>"; };
+		A10002000000000000000004 /* AudioRecorder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioRecorder.swift; sourceTree = "<group>"; };
+		A10002000000000000000005 /* WhisperTranscriber.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WhisperTranscriber.swift; sourceTree = "<group>"; };
+		A10002000000000000000006 /* TextOutputManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextOutputManager.swift; sourceTree = "<group>"; };
+		A10002000000000000000007 /* MenuBarManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuBarManager.swift; sourceTree = "<group>"; };
+		A10002000000000000000008 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
+		A10002000000000000000009 /* HotkeyRecorderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HotkeyRecorderView.swift; sourceTree = "<group>"; };
+		A1000200000000000000000A /* RecordingIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordingIndicator.swift; sourceTree = "<group>"; };
+		A1000200000000000000000B /* AppSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppSettings.swift; sourceTree = "<group>"; };
+		A1000200000000000000000C /* HotkeyBinding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HotkeyBinding.swift; sourceTree = "<group>"; };
+		A1000200000000000000000D /* AudioRecording.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioRecording.swift; sourceTree = "<group>"; };
+		A1000200000000000000000E /* Transcribing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Transcribing.swift; sourceTree = "<group>"; };
+		A1000200000000000000000F /* TextOutputting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextOutputting.swift; sourceTree = "<group>"; };
+		A10002000000000000000010 /* PermissionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PermissionManager.swift; sourceTree = "<group>"; };
+		A10002000000000000000011 /* ModelDownloader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelDownloader.swift; sourceTree = "<group>"; };
+		A10002000000000000000012 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		A10002000000000000000013 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		A10002000000000000000014 /* LeakFlow.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = LeakFlow.entitlements; sourceTree = "<group>"; };
+		A10002000000000000000020 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
+		A10002000000000000000021 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		A10002000000000000000099 /* LeakFlow.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LeakFlow.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		B10002000000000000000001 /* LeakFlowTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeakFlowTests.swift; sourceTree = "<group>"; };
+		B10002000000000000000099 /* LeakFlowTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = LeakFlowTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		A10002000000000000000040 /* RecordingPipeline.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordingPipeline.swift; sourceTree = "<group>"; };
+		B10002000000000000000010 /* MockAudioRecorder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockAudioRecorder.swift; sourceTree = "<group>"; };
+		B10002000000000000000011 /* MockTranscriber.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockTranscriber.swift; sourceTree = "<group>"; };
+		B10002000000000000000012 /* MockTextOutputManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockTextOutputManager.swift; sourceTree = "<group>"; };
+		B10002000000000000000020 /* HotkeyEventHandlerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HotkeyEventHandlerTests.swift; sourceTree = "<group>"; };
+		B10002000000000000000021 /* RecordingPipelineTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordingPipelineTests.swift; sourceTree = "<group>"; };
+		B10002000000000000000022 /* AppSettingsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppSettingsTests.swift; sourceTree = "<group>"; };
+		B10002000000000000000023 /* TranscriberErrorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TranscriberErrorTests.swift; sourceTree = "<group>"; };
+		B10002000000000000000024 /* WhisperModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WhisperModelTests.swift; sourceTree = "<group>"; };
+		B10002000000000000000025 /* ModelDownloaderDataTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelDownloaderDataTests.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		A10003000000000000000001 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A10001000000000000000020 /* AVFoundation.framework in Frameworks */,
+				A10001000000000000000021 /* CoreGraphics.framework in Frameworks */,
+				A10001000000000000000030 /* WhisperCpp in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B10003000000000000000002 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		A10004000000000000000001 /* Root */ = {
+			isa = PBXGroup;
+			children = (
+				A10004000000000000000002 /* LeakFlow */,
+				B10004000000000000000001 /* LeakFlowTests */,
+				A10004000000000000000010 /* Frameworks */,
+				A10004000000000000000011 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		A10004000000000000000002 /* LeakFlow */ = {
+			isa = PBXGroup;
+			children = (
+				A10004000000000000000003 /* App */,
+				A10004000000000000000004 /* Managers */,
+				A10004000000000000000005 /* UI */,
+				A10004000000000000000006 /* Models */,
+				A10004000000000000000007 /* Protocols */,
+				A10004000000000000000008 /* Utilities */,
+				A10004000000000000000009 /* Resources */,
+			);
+			path = LeakFlow;
+			sourceTree = "<group>";
+		};
+		A10004000000000000000003 /* App */ = {
+			isa = PBXGroup;
+			children = (
+				A10002000000000000000001 /* LeakFlowApp.swift */,
+				A10002000000000000000002 /* AppDelegate.swift */,
+			);
+			path = App;
+			sourceTree = "<group>";
+		};
+		A10004000000000000000004 /* Managers */ = {
+			isa = PBXGroup;
+			children = (
+				A10002000000000000000003 /* HotkeyManager.swift */,
+				A10002000000000000000004 /* AudioRecorder.swift */,
+				A10002000000000000000005 /* WhisperTranscriber.swift */,
+				A10002000000000000000006 /* TextOutputManager.swift */,
+				A10002000000000000000040 /* RecordingPipeline.swift */,
+			);
+			path = Managers;
+			sourceTree = "<group>";
+		};
+		A10004000000000000000005 /* UI */ = {
+			isa = PBXGroup;
+			children = (
+				A10002000000000000000007 /* MenuBarManager.swift */,
+				A10002000000000000000008 /* SettingsView.swift */,
+				A10002000000000000000009 /* HotkeyRecorderView.swift */,
+				A1000200000000000000000A /* RecordingIndicator.swift */,
+			);
+			path = UI;
+			sourceTree = "<group>";
+		};
+		A10004000000000000000006 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				A1000200000000000000000B /* AppSettings.swift */,
+				A1000200000000000000000C /* HotkeyBinding.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		A10004000000000000000007 /* Protocols */ = {
+			isa = PBXGroup;
+			children = (
+				A1000200000000000000000D /* AudioRecording.swift */,
+				A1000200000000000000000E /* Transcribing.swift */,
+				A1000200000000000000000F /* TextOutputting.swift */,
+			);
+			path = Protocols;
+			sourceTree = "<group>";
+		};
+		A10004000000000000000008 /* Utilities */ = {
+			isa = PBXGroup;
+			children = (
+				A10002000000000000000010 /* PermissionManager.swift */,
+				A10002000000000000000011 /* ModelDownloader.swift */,
+			);
+			path = Utilities;
+			sourceTree = "<group>";
+		};
+		A10004000000000000000009 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				A10002000000000000000012 /* Assets.xcassets */,
+				A10002000000000000000013 /* Info.plist */,
+				A10002000000000000000014 /* LeakFlow.entitlements */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		A10004000000000000000010 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				A10002000000000000000020 /* AVFoundation.framework */,
+				A10002000000000000000021 /* CoreGraphics.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		A10004000000000000000011 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				A10002000000000000000099 /* LeakFlow.app */,
+				B10002000000000000000099 /* LeakFlowTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		B10004000000000000000001 /* LeakFlowTests */ = {
+			isa = PBXGroup;
+			children = (
+				B10002000000000000000001 /* LeakFlowTests.swift */,
+				B10002000000000000000020 /* HotkeyEventHandlerTests.swift */,
+				B10002000000000000000021 /* RecordingPipelineTests.swift */,
+				B10002000000000000000022 /* AppSettingsTests.swift */,
+				B10002000000000000000023 /* TranscriberErrorTests.swift */,
+				B10002000000000000000024 /* WhisperModelTests.swift */,
+				B10002000000000000000025 /* ModelDownloaderDataTests.swift */,
+				B10004000000000000000010 /* Mocks */,
+			);
+			path = LeakFlowTests;
+			sourceTree = "<group>";
+		};
+		B10004000000000000000010 /* Mocks */ = {
+			isa = PBXGroup;
+			children = (
+				B10002000000000000000010 /* MockAudioRecorder.swift */,
+				B10002000000000000000011 /* MockTranscriber.swift */,
+				B10002000000000000000012 /* MockTextOutputManager.swift */,
+			);
+			path = Mocks;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		A10005000000000000000001 /* LeakFlow */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = A10008000000000000000003 /* Build configuration list for PBXNativeTarget "LeakFlow" */;
+			buildPhases = (
+				A10006000000000000000001 /* Sources */,
+				A10003000000000000000001 /* Frameworks */,
+				A10006000000000000000002 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = LeakFlow;
+			packageProductDependencies = (
+				A10009000000000000000001 /* WhisperCpp */,
+			);
+			productName = LeakFlow;
+			productReference = A10002000000000000000099 /* LeakFlow.app */;
+			productType = "com.apple.product-type.application";
+		};
+		B10005000000000000000001 /* LeakFlowTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = B10008000000000000000003 /* Build configuration list for PBXNativeTarget "LeakFlowTests" */;
+			buildPhases = (
+				B10006000000000000000001 /* Sources */,
+				B10003000000000000000002 /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				B10007000000000000000001 /* PBXTargetDependency */,
+			);
+			name = LeakFlowTests;
+			productName = LeakFlowTests;
+			productReference = B10002000000000000000099 /* LeakFlowTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		A10007000000000000000001 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 1500;
+				LastUpgradeCheck = 1500;
+				TargetAttributes = {
+					A10005000000000000000001 = {
+						CreatedOnToolsVersion = 15.0;
+					};
+					B10005000000000000000001 = {
+						CreatedOnToolsVersion = 15.0;
+						TestTargetID = A10005000000000000000001;
+					};
+				};
+			};
+			buildConfigurationList = A10008000000000000000001 /* Build configuration list for PBXProject "LeakFlow" */;
+			compatibilityVersion = "Xcode 14.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = A10004000000000000000001 /* Root */;
+			packageReferences = (
+				A1000A000000000000000001 /* XCRemoteSwiftPackageReference "whisper.cpp" */,
+			);
+			productRefGroup = A10004000000000000000011 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				A10005000000000000000001 /* LeakFlow */,
+				B10005000000000000000001 /* LeakFlowTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		A10006000000000000000002 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A10001000000000000000012 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		A10006000000000000000001 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A10001000000000000000001 /* LeakFlowApp.swift in Sources */,
+				A10001000000000000000002 /* AppDelegate.swift in Sources */,
+				A10001000000000000000003 /* HotkeyManager.swift in Sources */,
+				A10001000000000000000004 /* AudioRecorder.swift in Sources */,
+				A10001000000000000000005 /* WhisperTranscriber.swift in Sources */,
+				A10001000000000000000006 /* TextOutputManager.swift in Sources */,
+				A10001000000000000000007 /* MenuBarManager.swift in Sources */,
+				A10001000000000000000008 /* SettingsView.swift in Sources */,
+				A10001000000000000000009 /* HotkeyRecorderView.swift in Sources */,
+				A1000100000000000000000A /* RecordingIndicator.swift in Sources */,
+				A1000100000000000000000B /* AppSettings.swift in Sources */,
+				A1000100000000000000000C /* HotkeyBinding.swift in Sources */,
+				A1000100000000000000000D /* AudioRecording.swift in Sources */,
+				A1000100000000000000000E /* Transcribing.swift in Sources */,
+				A1000100000000000000000F /* TextOutputting.swift in Sources */,
+				A10001000000000000000010 /* PermissionManager.swift in Sources */,
+				A10001000000000000000011 /* ModelDownloader.swift in Sources */,
+				A10001000000000000000040 /* RecordingPipeline.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B10006000000000000000001 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B10001000000000000000001 /* LeakFlowTests.swift in Sources */,
+				B10001000000000000000010 /* MockAudioRecorder.swift in Sources */,
+				B10001000000000000000011 /* MockTranscriber.swift in Sources */,
+				B10001000000000000000012 /* MockTextOutputManager.swift in Sources */,
+				B10001000000000000000020 /* HotkeyEventHandlerTests.swift in Sources */,
+				B10001000000000000000021 /* RecordingPipelineTests.swift in Sources */,
+				B10001000000000000000022 /* AppSettingsTests.swift in Sources */,
+				B10001000000000000000023 /* TranscriberErrorTests.swift in Sources */,
+				B10001000000000000000024 /* WhisperModelTests.swift in Sources */,
+				B10001000000000000000025 /* ModelDownloaderDataTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		B10007000000000000000001 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = A10005000000000000000001 /* LeakFlow */;
+			targetProxy = B10003000000000000000001 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		A10008000000000000000010 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		A10008000000000000000011 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = macosx;
+				SWIFT_COMPILATION_MODE = wholemodule;
+			};
+			name = Release;
+		};
+		A10008000000000000000020 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = LeakFlow/Resources/LeakFlow.entitlements;
+				CODE_SIGN_IDENTITY = "-";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = "";
+				ENABLE_HARDENED_RUNTIME = YES;
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = LeakFlow/Resources/Info.plist;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.malikapixels.leakflow;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				OTHER_LDFLAGS = (
+					"-lc++",
+					"-framework",
+					Accelerate,
+					"-framework",
+					Metal,
+					"-framework",
+					MetalKit,
+				);
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		A10008000000000000000021 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = LeakFlow/Resources/LeakFlow.entitlements;
+				CODE_SIGN_IDENTITY = "-";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = "";
+				ENABLE_HARDENED_RUNTIME = YES;
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = LeakFlow/Resources/Info.plist;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.malikapixels.leakflow;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				OTHER_LDFLAGS = (
+					"-lc++",
+					"-framework",
+					Accelerate,
+					"-framework",
+					Metal,
+					"-framework",
+					MetalKit,
+				);
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
+		B10008000000000000000020 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.malikapixels.leakflow.tests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/LeakFlow.app/Contents/MacOS/LeakFlow";
+			};
+			name = Debug;
+		};
+		B10008000000000000000021 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.malikapixels.leakflow.tests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/LeakFlow.app/Contents/MacOS/LeakFlow";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		A10008000000000000000001 /* Build configuration list for PBXProject "LeakFlow" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				A10008000000000000000010 /* Debug */,
+				A10008000000000000000011 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		A10008000000000000000003 /* Build configuration list for PBXNativeTarget "LeakFlow" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				A10008000000000000000020 /* Debug */,
+				A10008000000000000000021 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		B10008000000000000000003 /* Build configuration list for PBXNativeTarget "LeakFlowTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				B10008000000000000000020 /* Debug */,
+				B10008000000000000000021 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		A1000A000000000000000001 /* XCRemoteSwiftPackageReference "whisper-cpp-swift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/andrii-rubtsov/whisper-cpp-swift";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.7.5;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		A10009000000000000000001 /* WhisperCpp */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = A1000A000000000000000001 /* XCRemoteSwiftPackageReference "whisper-cpp-swift" */;
+			productName = WhisperCpp;
+		};
+/* End XCSwiftPackageProductDependency section */
+	};
+	rootObject = A10007000000000000000001 /* Project object */;
+}

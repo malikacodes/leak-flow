@@ -1,0 +1,15 @@
+{
+  "originHash" : "79cde340f4155d232f9a789e309dafcb2c078815f378c658c4635b606b25f13c",
+  "pins" : [
+    {
+      "identity" : "whisper-cpp-swift",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/andrii-rubtsov/whisper-cpp-swift",
+      "state" : {
+        "revision" : "ba81f5db2dc7a805421bb31910c799c0f15f4d0a",
+        "version" : "1.7.5"
+      }
+    }
+  ],
+  "version" : 3
+}
