@@ -37,10 +37,10 @@ final class MenuBarManager: NSObject {
         }
     }
 
-    /// A small pink dot, matching the recording pill
+    /// A small rose-colored dot for the menu bar
     private static func dotImage(alpha: CGFloat) -> NSImage {
         let image = NSImage(size: NSSize(width: 18, height: 18), flipped: false) { rect in
-            NSColor.leakPink.withAlphaComponent(alpha).setFill()
+            NSColor.leakRose.withAlphaComponent(alpha).setFill() // the deeper rose, so it shows up on a light menu bar
             NSBezierPath(ovalIn: rect.insetBy(dx: 4, dy: 4)).fill()
             return true
         }
