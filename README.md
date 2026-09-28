@@ -29,7 +29,8 @@ listening and the typing both happen on your own Mac.
 | 🎙️ **Hold to talk** | Hold your key (Right Option to start with, and you can change it), talk, let go. |
 | ✍️ **Types it for you** | Pastes the words where your cursor is, and keeps a copy on the clipboard too. |
 | 🔒 **Stays on your Mac** | No accounts, no cloud, no subscription. Your voice never leaves the computer. |
-| 👀 **Shows it's listening** | A small floating window while it's recording, so you're never guessing. |
+| 👀 **Shows it's listening** | A pink pill on the left side of the screen while it's recording, so you're never guessing. |
+| 🕘 **Remembers the last 5** | Click the pink dot in the menu bar to copy any of your last 5 recordings again. |
 | ⬇️ **Sets itself up** | Downloads the speech model the first time it opens. |
 | 🚀 **Opens with your Mac** | If you want it to. |
 
@@ -60,12 +61,14 @@ make zip   # builds the app and zips it into build/LeakFlow.zip
 
 ## Using it
 
-1. Open Leak Flow. A microphone icon shows up in the menu bar.
+1. Open Leak Flow. A small pink dot shows up in the menu bar.
 2. Say yes to the **Microphone** and **Accessibility** permissions.
 3. The first time, it downloads the speech model (about 150 MB). Give it
    a minute.
 4. **Hold your key**, talk, **let go**.
-5. Your words get pasted in, and copied to the clipboard.
+5. Your words get pasted in, and copied to the clipboard. Click the pink
+   dot to see your last 5 recordings with their times, and click one to
+   copy it again.
 
 ## Permissions (and why it needs them)
 

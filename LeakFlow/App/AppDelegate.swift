@@ -53,6 +53,12 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
         menuBarManager?.setupMenuBar()
 
         recordingIndicator = RecordingIndicatorWindow()
+
+        recordingPipeline.onTranscriptionComplete = { text in
+            DispatchQueue.main.async {
+                TranscriptHistory.shared.add(text)
+            }
+        }
     }
 
     private func setupHotkey() {
