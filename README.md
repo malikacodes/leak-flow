@@ -13,7 +13,7 @@ it works everywhere and it doesn't send your voice anywhere. The
 listening and the typing both happen on your own Mac.
 
 <p align="center">
-  <img src="screenshots/recording-dot.png" width="300" alt="The pink glass dot that shows on the left edge of the screen while you're talking">
+  <img src="screenshots/recording-dot.png" width="300" alt="The glass pearl that pulses on the left edge of the screen while you're talking">
 </p>
 
 <p align="center">
@@ -29,7 +29,7 @@ listening and the typing both happen on your own Mac.
 | 🎙️ **Hold to talk** | Hold your key (Right Option to start with, and you can change it), talk, let go. |
 | ✍️ **Types it for you** | Pastes the words where your cursor is, and keeps a copy on the clipboard too. |
 | 🔒 **Stays on your Mac** | No accounts, no cloud, no subscription. Your voice never leaves the computer. |
-| 👀 **Shows it's listening** | A small pink glass dot on the left edge of the screen pulses while it's recording, so you're never guessing. |
+| 👀 **Shows it's listening** | A little glass pearl on the left edge of the screen breathes and sends out soft ripples while it's recording, so you're never guessing. |
 | 🕘 **Remembers the last 5** | Click the rose dot in the menu bar to copy any of your last 5 recordings again. |
 | ⬇️ **Sets itself up** | Downloads the speech model the first time it opens. |
 | 🚀 **Opens with your Mac** | If you want it to. |
