@@ -16,6 +16,16 @@ listening and the typing both happen on your own Mac.
   <img src="screenshots/recording-dot.png" width="300" alt="The glass pearl that pulses on the left edge of the screen while you're talking">
 </p>
 
+### Why it's cute 🫧
+
+So much of tech feels male coded: dark gray everything, sharp corners,
+little red warning lights. I look at this app every time I talk to my
+computer, so I wanted it to feel soft and pretty and like mine. That's
+where the pearl came from: a tiny glass pearl in blush `#EFD3CF` and rose
+`#9C4A63` that breathes and sends out little ripples while it listens.
+It's quiet, it's not too much, and I'm in love with it. The full story is
+in the [1.1 release notes](https://github.com/malikacodes/leak-flow/releases/tag/v1.1).
+
 <p align="center">
   <img src="screenshots/settings-general.png" width="250" alt="General settings">
   <img src="screenshots/settings-model.png" width="250" alt="Choosing a model">

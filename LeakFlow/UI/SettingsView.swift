@@ -209,7 +209,9 @@ struct StatusSettingsTab: View {
             Section {
                 HStack {
                     Spacer()
-                    Text("Leak Flow v1.0")
+                    // Reads the version number from the app itself (set as MARKETING_VERSION
+                    // in the Xcode project), so it's always right after a version bump
+                    Text("Leak Flow v\(Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as? String ?? "")")
                         .foregroundColor(.secondary)
                         .font(.caption)
                     Spacer()

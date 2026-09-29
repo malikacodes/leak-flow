@@ -533,7 +533,7 @@
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 1.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.malikapixels.leakflow;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				OTHER_LDFLAGS = (
@@ -570,7 +570,7 @@
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 1.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.malikapixels.leakflow;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				OTHER_LDFLAGS = (
@@ -595,7 +595,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				GENERATE_INFOPLIST_FILE = YES;
 				MACOSX_DEPLOYMENT_TARGET = 14.0;
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 1.1;
 				DEVELOPMENT_TEAM = VKN293379B;
 				PRODUCT_BUNDLE_IDENTIFIER = com.malikapixels.leakflow.tests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -613,7 +613,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				GENERATE_INFOPLIST_FILE = YES;
 				MACOSX_DEPLOYMENT_TARGET = 14.0;
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 1.1;
 				DEVELOPMENT_TEAM = VKN293379B;
 				PRODUCT_BUNDLE_IDENTIFIER = com.malikapixels.leakflow.tests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
