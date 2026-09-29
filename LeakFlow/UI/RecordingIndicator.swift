@@ -24,6 +24,16 @@ extension NSColor {
     }
 }
 
+extension Color {
+    static let leakPink = Color(nsColor: .leakPink)
+    static let leakRose = Color(nsColor: .leakRose)
+
+    /// Luminous opalescent pearl tones to create the iridescent liquid glass depth:
+    static let pearlGleam = Color(red: 1.0, green: 0.98, blue: 0.97)   // creamy highlight gleam
+    static let pearlLuster = Color(red: 0.97, green: 0.92, blue: 0.91) // silky champagne-blush nacre
+    static let pearlShade = Color(red: 0.86, green: 0.68, blue: 0.66)  // soft underside refractive shade
+}
+
 /// The little floating window that holds the recording dot on the left edge of the screen
 /// while you're holding the key and talking.
 ///
@@ -31,9 +41,9 @@ extension NSColor {
 /// without stealing focus, so whatever app you're typing in stays active.
 final class RecordingIndicatorWindow: NSPanel {
 
-    /// How big the window is. It's a bit bigger than the dot itself
-    /// so the dot's soft glow has room and doesn't get cut off.
-    private static let size = NSSize(width: 22, height: 22)
+    /// How big the window is. Sized with ample breathing room so the liquid ripple wave
+    /// and ambient pearl glow expand naturally without getting clipped by the window edges.
+    private static let size = NSSize(width: 36, height: 36)
 
     init() {
         super.init(
@@ -51,7 +61,7 @@ final class RecordingIndicatorWindow: NSPanel {
         collectionBehavior = [.canJoinAllSpaces, .stationary] // show up on every desktop
         ignoresMouseEvents = true  // clicks pass right through it, like it isn't there
 
-        // Put the SwiftUI dot (defined below) inside this window
+        // Put the SwiftUI liquid glass dot (defined below) inside this window
         contentView = NSHostingView(rootView: RecordingIndicatorView())
 
         positionOnLeftEdge()
@@ -80,67 +90,171 @@ final class RecordingIndicatorWindow: NSPanel {
     }
 }
 
-/// Frosted glass: blurs whatever is behind the dot, like looking through a
-/// frosted shower door. This is what makes it see-through instead of flat.
+/// Frosted glass: blurs whatever is behind the dot, like looking through frosted glass.
+/// This gives the droplet authentic Apple liquid glass translucency.
 ///
-/// SwiftUI can't make this effect by itself, so this borrows the macOS one
-/// (NSVisualEffectView, the same thing behind Control Center and menus) and
-/// wraps it so SwiftUI can use it.
+/// Borrowing macOS's NSVisualEffectView and wrapping it for SwiftUI.
 private struct FrostedGlass: NSViewRepresentable {
     func makeNSView(context: Context) -> NSVisualEffectView {
         let view = NSVisualEffectView()
-        view.material = .popover          // a soft, see-through blur
-        view.appearance = NSAppearance(named: .vibrantLight) // light glass, so the pink reads as pink, not gray
+        view.material = .hudWindow       // crisp, vibrant liquid glass blur
+        view.appearance = NSAppearance(named: .vibrantLight) // light glass so the pearl reads clean
         view.blendingMode = .behindWindow // blur what's on screen behind the dot
-        view.state = .active              // keep the blur on even when Leak Flow isn't the active app
+        view.state = .active              // keep blur active even when Leak Flow isn't frontmost
         return view
     }
 
     func updateNSView(_ nsView: NSVisualEffectView, context: Context) {}
 }
 
-/// What the indicator looks like: a small dot of pink-tinted frosted glass
-/// that gently breathes (grows and fades a little) while you're talking.
+/// A sleek Apple-style liquid glass pearl recording indicator that breathes
+/// with a calm, organic pulse and emits a delicate concentric ripple wave while active.
 struct RecordingIndicatorView: View {
-    /// How strong the pink tint is on top of the glass.
-    /// 1.0 would hide the glass completely; lower is more see-through.
-    private let pinkTint = 0.55
-
-    /// How big the dot is, in points
+    /// The physical diameter of the pearl liquid bead
     private let dotSize: CGFloat = 14
 
-    /// Flips back and forth to make the dot breathe
-    @State private var isPulsing = false
+    /// Drives the organic breathing cycle (scale and internal luster)
+    @State private var isBreathing = false
+
+    /// Drives the concentric expanding liquid ripple wave
+    @State private var isRippling = false
 
     var body: some View {
-        // Layers, back to front (like stacking sheets of tinted plastic):
         ZStack {
-            FrostedGlass()                                   // 1. the blurry glass
-            Color(nsColor: .leakPink).opacity(pinkTint)      // 2. a wash of your pink
-            LinearGradient(                                  // 3. a soft shine on the top half,
-                colors: [Color.white.opacity(0.4), .clear],  //    so it looks round, not flat
-                startPoint: .top,
-                endPoint: .center
-            )
-        }
-        .frame(width: dotSize, height: dotSize)
-        .clipShape(Circle()) // trim all three layers to a circle
-        .overlay(
-            // A thin, bright edge, like light catching the rim of a glass bead
+            // 1. Ambient Pearl Aura (soft breathing glow behind the glass)
             Circle()
-                .stroke(Color.white.opacity(0.6), lineWidth: 0.5)
-        )
-        .shadow(color: Color(nsColor: .leakRose).opacity(0.35), radius: 3) // a faint pink glow
-        .scaleEffect(isPulsing ? 1.0 : 0.8) // breathe: grow a little...
-        .opacity(isPulsing ? 1.0 : 0.6)     // ...and brighten, then shrink and fade back
+                .fill(
+                    RadialGradient(
+                        colors: [
+                            Color.leakRose.opacity(isBreathing ? 0.35 : 0.18),
+                            Color.leakPink.opacity(isBreathing ? 0.25 : 0.08),
+                            .clear
+                        ],
+                        center: .center,
+                        startRadius: 2,
+                        endRadius: dotSize * 1.1
+                    )
+                )
+                .frame(width: dotSize * 2.2, height: dotSize * 2.2)
+                .blur(radius: 3.5)
+                .scaleEffect(isBreathing ? 1.08 : 0.92)
+
+            // 2. Concentric Liquid Ripple Wave (emits smoothly outward like a droplet in water)
+            Circle()
+                .strokeBorder(
+                    LinearGradient(
+                        colors: [
+                            Color.pearlGleam.opacity(isRippling ? 0.0 : 0.55),
+                            Color.leakPink.opacity(isRippling ? 0.0 : 0.35),
+                            Color.leakRose.opacity(isRippling ? 0.0 : 0.15)
+                        ],
+                        startPoint: .topLeading,
+                        endPoint: .bottomTrailing
+                    ),
+                    lineWidth: 0.75
+                )
+                .frame(width: dotSize, height: dotSize)
+                .scaleEffect(isRippling ? 1.75 : 1.0)
+                .opacity(isRippling ? 0.0 : 0.7)
+
+            // 3. The Core Liquid Glass Pearl Bead
+            ZStack {
+                // A. Frosted Glass Foundation (blurs whatever desktop content is behind the bead)
+                FrostedGlass()
+
+                // B. Multi-stop Pearl Nacre Gradient (gives 3D volumetric liquid depth)
+                RadialGradient(
+                    stops: [
+                        .init(color: Color.pearlGleam.opacity(0.92), location: 0.0),
+                        .init(color: Color.pearlLuster.opacity(0.85), location: 0.30),
+                        .init(color: Color.leakPink.opacity(0.78), location: 0.65),
+                        .init(color: Color.pearlShade.opacity(0.70), location: 0.90),
+                        .init(color: Color.leakRose.opacity(0.60), location: 1.0)
+                    ],
+                    center: UnitPoint(x: 0.36, y: 0.32), // offset toward top-left where the light hits
+                    startRadius: 1,
+                    endRadius: dotSize * 0.72
+                )
+
+                // C. Underside Caustic Bounce (light refracting through thick glass)
+                Circle()
+                    .fill(
+                        RadialGradient(
+                            colors: [
+                                Color.pearlLuster.opacity(0.45),
+                                Color.clear
+                            ],
+                            center: UnitPoint(x: 0.68, y: 0.72),
+                            startRadius: 0,
+                            endRadius: dotSize * 0.45
+                        )
+                    )
+
+                // D. Apple Convex Glass Specular Highlight (glossy meniscus curvature)
+                Ellipse()
+                    .fill(
+                        LinearGradient(
+                            stops: [
+                                .init(color: Color.white.opacity(0.85), location: 0.0),
+                                .init(color: Color.white.opacity(0.35), location: 0.55),
+                                .init(color: Color.clear, location: 1.0)
+                            ],
+                            startPoint: .top,
+                            endPoint: .bottom
+                        )
+                    )
+                    .frame(width: dotSize * 0.70, height: dotSize * 0.36)
+                    .offset(x: 0, y: -dotSize * 0.20)
+                    .opacity(isBreathing ? 0.95 : 0.75)
+
+                // E. Micro Catchlight (pinpoint studio reflection at 10 o'clock)
+                Circle()
+                    .fill(Color.white.opacity(0.92))
+                    .frame(width: 1.6, height: 1.6)
+                    .offset(x: -dotSize * 0.22, y: -dotSize * 0.22)
+                    .blur(radius: 0.15)
+            }
+            .frame(width: dotSize, height: dotSize)
+            .clipShape(Circle())
+            .overlay(
+                // F. Fresnel Glass Rim (razor-sharp refractive boundary)
+                Circle()
+                    .strokeBorder(
+                        LinearGradient(
+                            stops: [
+                                .init(color: Color.white.opacity(0.88), location: 0.0),
+                                .init(color: Color.white.opacity(0.35), location: 0.40),
+                                .init(color: Color.pearlLuster.opacity(0.25), location: 0.70),
+                                .init(color: Color.leakRose.opacity(0.45), location: 1.0)
+                            ],
+                            startPoint: .topLeading,
+                            endPoint: .bottomTrailing
+                        ),
+                        lineWidth: 0.65
+                    )
+            )
+            .overlay(
+                // Outer delicate hairline definition
+                Circle()
+                    .stroke(Color.white.opacity(0.20), lineWidth: 0.4)
+            )
+            .shadow(color: Color.leakRose.opacity(0.35), radius: 3, x: 0, y: 1.5)
+            .scaleEffect(isBreathing ? 1.04 : 0.97)
+        }
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
         .animation(
-            .easeInOut(duration: 0.8)
-            .repeatForever(autoreverses: true), // back and forth, forever, while it's showing
-            value: isPulsing
+            .easeInOut(duration: 1.5)
+            .repeatForever(autoreverses: true),
+            value: isBreathing
         )
-        .frame(maxWidth: .infinity, maxHeight: .infinity) // center the dot in its window
+        .animation(
+            .easeOut(duration: 1.7)
+            .repeatForever(autoreverses: false),
+            value: isRippling
+        )
         .onAppear {
-            isPulsing = true // start breathing as soon as the dot shows up
+            isBreathing = true
+            isRippling = true
         }
     }
 }
