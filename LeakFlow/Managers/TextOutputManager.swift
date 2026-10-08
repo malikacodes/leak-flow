@@ -30,26 +30,31 @@ final class TextOutputManager: TextOutputting {
 
     /// Copy text and optionally paste it into the active field
     func output(text: String, autoPaste: Bool, copyToClipboard: Bool) {
-        if copyToClipboard {
-            self.copyToClipboard(text)
-
-            if autoPaste {
-                pasteFromClipboard()
+        guard autoPaste else {
+            if copyToClipboard {
+                self.copyToClipboard(text)
             }
-        } else if autoPaste {
-            // Save current clipboard, paste transcribed text, then restore
-            let pasteboard = NSPasteboard.general
-            let previousContents = pasteboard.string(forType: .string)
+            return
+        }
 
-            self.copyToClipboard(text)
-            pasteFromClipboard()
+        let pasteboard = NSPasteboard.general
 
-            // Restore previous clipboard after paste completes
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.15) {
-                pasteboard.clearContents()
-                if let previous = previousContents {
-                    pasteboard.setString(previous, forType: .string)
-                }
+        // What the clipboard should hold once the paste is done: the clean text
+        // if I want it copied, otherwise whatever was there before.
+        let afterPaste = copyToClipboard ? text : pasteboard.string(forType: .string)
+
+        // Paste with a space on the end. Each recording arrives trimmed down to
+        // just its words, so without this, letting go of the key and talking
+        // again glued the two together ("working now.Okay"). The space only goes
+        // into the paste, never into the clipboard or the history.
+        self.copyToClipboard(text + " ")
+        pasteFromClipboard()
+
+        // Swap the clipboard back after the paste has had time to land
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.15) {
+            pasteboard.clearContents()
+            if let afterPaste {
+                pasteboard.setString(afterPaste, forType: .string)
             }
         }
     }
