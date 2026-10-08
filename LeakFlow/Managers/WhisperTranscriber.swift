@@ -12,14 +12,6 @@ final class WhisperTranscriber: Transcribing {
     /// to do the model's heaviest math. Same result, less work.
     var useFlashAttention = true
 
-    /// Speed setting: only make the model read as much audio as you actually said.
-    ///
-    /// Whisper was built to listen in 30-second chunks. If you talk for 5 seconds,
-    /// it normally pads the rest with silence and still reads all 30 seconds, like
-    /// reading a whole page when only the first line has writing on it. This tells
-    /// it to stop at the end of what you said. (Only used when flash attention is on.)
-    var trimToSpeechLength = true
-
     deinit {
         unloadModel()
     }
@@ -86,11 +78,11 @@ final class WhisperTranscriber: Transcribing {
                 params.print_special = false
                 params.print_timestamps = false
 
-                // Trimming only works safely together with flash attention. Without it,
-                // the graphics chip crashes on some recording lengths, so we skip it.
-                if self.trimToSpeechLength && self.useFlashAttention {
-                    params.audio_ctx = Self.audioContext(forSampleCount: samples.count)
-                }
+                // No trimming the 30-second window (audio_ctx stays at its default).
+                // I used to shrink it to the length of what I said, to save about a
+                // third of a second. But the model stays loaded between recordings,
+                // and after a longer recording a shorter one lost its last few words.
+                // The same audio came back whole with the full window.
 
                 let result = samples.withUnsafeBufferPointer { bufferPointer in
                     whisper_full(ctx, params, bufferPointer.baseAddress, Int32(samples.count))
@@ -114,17 +106,6 @@ final class WhisperTranscriber: Transcribing {
                 continuation.resume(returning: trimmed)
             }
         }
-    }
-
-    /// How much of the 30-second window the model should read for a recording.
-    ///
-    /// The model reads audio in tiny steps, 50 of them per second, and a full
-    /// 30 seconds is 1,500 steps. So a 4-second recording needs about 200 steps.
-    /// A little extra is added on top so the last word never gets cut off.
-    static func audioContext(forSampleCount sampleCount: Int) -> Int32 {
-        let seconds = Double(sampleCount) / 16_000   // the recording is 16,000 samples per second
-        let steps = Int(seconds * 50) + 128          // 50 steps per second, plus some breathing room
-        return Int32(min(steps, 1500))               // never more than the full 30 seconds
     }
 
     /// Unload the current model and free resources
