@@ -163,4 +163,41 @@ final class HotkeyEventHandlerTests: XCTestCase {
         XCTAssertEqual(action, .press)
         XCTAssertTrue(handler.isHotkeyPressed)
     }
+
+    // MARK: - Hold to talk, or tap to keep it on
+
+    // Protects the original way of talking: down starts, letting go after a
+    // real hold stops.
+    func testHold_downStartsAndLettingGoStops() {
+        XCTAssertEqual(HotkeyAction.press.recordingCommand(isRecording: false, heldFor: 0), .start)
+        XCTAssertEqual(HotkeyAction.release.recordingCommand(isRecording: true, heldFor: 2.0), .stop)
+    }
+
+    // The whole point of the tap: a quick press and release must not end the
+    // recording, or it would stop the moment my finger came off the key.
+    func testTap_lettingGoKeepsRecording() {
+        XCTAssertEqual(HotkeyAction.release.recordingCommand(isRecording: true, heldFor: 0.1), .nothing)
+    }
+
+    // After a tap, the next press is the off switch, and letting go of that
+    // press must not start or stop anything else.
+    func testTap_nextPressStops() {
+        XCTAssertEqual(HotkeyAction.press.recordingCommand(isRecording: true, heldFor: 0), .stop)
+        XCTAssertEqual(HotkeyAction.release.recordingCommand(isRecording: false, heldFor: 0.1), .nothing)
+    }
+
+    // Right at the line, a press counts as a hold, so the recording can't get
+    // stuck on by a press that felt like holding.
+    func testPressExactlyTapLength_countsAsHold() {
+        XCTAssertEqual(
+            HotkeyAction.release.recordingCommand(isRecording: true, heldFor: HotkeyAction.tapLength),
+            .stop
+        )
+    }
+
+    // If the recording never started (say the last one was still being
+    // transcribed), letting go shouldn't "stop" a recording that isn't there.
+    func testLetGoWithNothingRecording_doesNothing() {
+        XCTAssertEqual(HotkeyAction.release.recordingCommand(isRecording: false, heldFor: 2.0), .nothing)
+    }
 }
