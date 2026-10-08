@@ -73,7 +73,13 @@ final class WhisperTranscriber: Transcribing {
                 let strategy = whisper_sampling_strategy(rawValue: 0) // WHISPER_SAMPLING_GREEDY
                 var params: whisper_full_params = whisper_full_default_params(strategy)
                 params.n_threads = 4
-                params.no_timestamps = true
+
+                // Timestamps stay on, even though the text never shows them. They're
+                // Whisper's bookmark: how it knows how far into the 30-second window
+                // it has read. With them off, if it decided I was done after my first
+                // sentence (a pause is enough), it skipped everything else in that
+                // window and the rest of what I said was just gone.
+                params.no_timestamps = false
                 params.single_segment = false
                 params.print_progress = false
                 params.print_realtime = false

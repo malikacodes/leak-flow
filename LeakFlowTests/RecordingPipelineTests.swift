@@ -28,15 +28,36 @@ final class RecordingPipelineTests: XCTestCase {
         XCTAssertEqual(mockRecorder.startRecordingCallCount, 1)
     }
 
-    func testStartRecording_whileProcessing_doesNothing() async throws {
-        // Make the pipeline processing by running a transcription
+    // Protects against the pearl lying: if the last recording is still being
+    // transcribed, starting a new one has to fail loudly, not pretend to record.
+    func testStartRecording_whileTranscribing_throws() async throws {
         mockRecorder.samplesToReturn = [0.1, 0.2]
         mockTranscriber.isModelLoaded = true
-        mockTranscriber.textToReturn = "test"
-        // Simulate processing state by starting a slow transcription
-        // Instead, directly test the guard by checking that startRecording
-        // doesn't throw when processing
-        try pipeline.startRecording()
+
+        // Hold the transcription open until the test lets it finish
+        let transcribing = expectation(description: "transcription is in progress")
+        var finish: CheckedContinuation<Void, Never>?
+        mockTranscriber.beforeReturning = {
+            await withCheckedContinuation { continuation in
+                finish = continuation
+                transcribing.fulfill()
+            }
+        }
+
+        let running = Task {
+            await pipeline.stopRecordingAndTranscribe(autoPaste: false, copyToClipboard: false)
+        }
+        await fulfillment(of: [transcribing], timeout: 2)
+
+        XCTAssertThrowsError(try pipeline.startRecording()) { error in
+            XCTAssertEqual(error as? RecordingPipelineError, .stillTranscribing)
+        }
+        XCTAssertEqual(mockRecorder.startRecordingCallCount, 0)
+
+        // Once it's done, recording works again
+        finish?.resume()
+        await running.value
+        XCTAssertNoThrow(try pipeline.startRecording())
         XCTAssertEqual(mockRecorder.startRecordingCallCount, 1)
     }
 

@@ -1,4 +1,5 @@
 import Foundation
+import os
 
 /// Orchestrates the recording and transcription pipeline
 final class RecordingPipeline {
@@ -8,6 +9,11 @@ final class RecordingPipeline {
 
     /// Whether the pipeline is currently processing a transcription
     private(set) var isProcessing = false
+
+    /// One line per recording: how long I talked and how many words came back.
+    /// The words themselves are never written down, only the counts.
+    /// To read it: log show --last 1h --predicate 'subsystem == "com.malikapixels.leakflow"'
+    private let log = Logger(subsystem: "com.malikapixels.leakflow", category: "recording")
 
     /// Called when an error occurs during the pipeline
     var onError: ((Error) -> Void)?
@@ -24,7 +30,12 @@ final class RecordingPipeline {
 
     /// Start recording audio
     func startRecording() throws {
-        guard !isProcessing else { return }
+        // This used to return quietly, so the pearl showed up and I talked to
+        // nothing. Throwing means the app only looks like it's recording when it is.
+        guard !isProcessing else {
+            log.notice("key pressed while the last recording was still transcribing, not recording")
+            throw RecordingPipelineError.stillTranscribing
+        }
         try recorder.startRecording()
     }
 
@@ -32,8 +43,11 @@ final class RecordingPipeline {
     func stopRecordingAndTranscribe(autoPaste: Bool, copyToClipboard: Bool) async {
         let samples = recorder.stopRecording()
 
+        // 16,000 samples is one second of audio
+        let seconds = Double(samples.count) / 16_000
+
         guard !samples.isEmpty else {
-            print("RecordingPipeline: No audio samples captured")
+            log.notice("key released but no audio was captured")
             return
         }
 
@@ -48,6 +62,11 @@ final class RecordingPipeline {
             let text = try await transcriber.transcribe(samples: samples)
             let trimmed = text.trimmingCharacters(in: .whitespacesAndNewlines)
 
+            // Short seconds means the recording stopped early (key or mic).
+            // Plenty of seconds and few words means Whisper dropped them.
+            let words = trimmed.split(whereSeparator: \.isWhitespace).count
+            log.notice("recorded \(seconds, format: .fixed(precision: 1)) seconds, got \(words) words")
+
             guard !trimmed.isEmpty else {
                 print("RecordingPipeline: Transcription returned empty text")
                 isProcessing = false
@@ -61,6 +80,18 @@ final class RecordingPipeline {
             print("RecordingPipeline: Transcription failed: \(error)")
             onError?(error)
             isProcessing = false
+        }
+    }
+}
+
+/// Errors that can occur before recording starts
+enum RecordingPipelineError: LocalizedError {
+    case stillTranscribing
+
+    var errorDescription: String? {
+        switch self {
+        case .stillTranscribing:
+            return "Still transcribing the last recording"
         }
     }
 }
