@@ -12,3 +12,4 @@ commands written out so I can do it again.
 | 03 | September 28, 2026 | [The pearl that wouldn't ripple, and version 1.1](03-the-pearl-and-version-1-1.md) |
 | 04 | October 8, 2026 | [The app that only heard "you"](04-the-app-that-only-heard-you.md) |
 | 05 | October 8, 2026 | [One key, two ways to talk](05-one-key-two-ways-to-talk.md) |
+| 06 | October 13, 2026 | [The missing endings](06-the-missing-endings.md) |
