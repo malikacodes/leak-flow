@@ -37,6 +37,8 @@ in the [1.1 release notes](https://github.com/malikacodes/leak-flow/releases/tag
 | | What it does |
 |---|---|
 | 🎙️ **Hold to talk** | Hold your key (Right Option to start with, and you can change it), talk, let go. |
+| 👆 **Or tap** | For the long ones: tap the key once and it keeps listening. Tap again to stop. Same key, no setting. |
+| 🎛️ **Stream Deck button** | Leak Flow also listens for F20. Give a Stream Deck key the F20 hotkey: one push starts it, the next push stops it. |
 | ✍️ **Types it for you** | Pastes the words where your cursor is, and keeps a copy on the clipboard too. |
 | 🔒 **Stays on your Mac** | No accounts, no cloud, no subscription. Your voice never leaves the computer. |
 | 👀 **Shows it's listening** | A little glass pearl on the left edge of the screen breathes and sends out soft ripples while it's recording, so you're never guessing. |
@@ -88,7 +90,8 @@ make zip   # builds the app and zips it into build/LeakFlow.zip
 2. Say yes to the **Microphone** and **Accessibility** permissions.
 3. The first time, it downloads the speech model (about 150 MB). Give it
    a minute.
-4. **Hold your key**, talk, **let go**.
+4. **Hold your key**, talk, **let go**. Or give the key a quick tap, talk
+   as long as you like, and tap again to stop.
 5. Your words get pasted in, and copied to the clipboard. Click the rose
    dot to see your last 5 recordings with their times, and click one to
    copy it again.
@@ -110,6 +113,11 @@ Click the menu bar icon, then **Settings**:
   key you want to use.
 - **Models:** Base English is smaller (about 150 MB). Small English is much
   more accurate (about 500 MB) and still quick, so it's the one to use.
+- **Tap or hold:** no setting for this. Under about a third of a second
+  counts as a tap, and anything longer is a hold.
+- **Stream Deck:** F20 is built in and isn't in Settings yet. I picked it
+  because my talk key is Right Command on its own, and a Stream Deck
+  hotkey can't be just a Command key.
 - **Auto-paste:** switch off if you only want it copied, not pasted.
 - **Sound effects:** a little sound when it starts and stops listening.
 - **Launch at login:** opens Leak Flow when you log in.

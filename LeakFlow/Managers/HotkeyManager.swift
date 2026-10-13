@@ -12,6 +12,40 @@ enum HotkeyAction: Equatable {
     case passthrough
 }
 
+/// What the app should do with the recording when the key moves
+enum RecordingCommand: Equatable {
+    case start
+    case stop
+    case nothing
+}
+
+extension HotkeyAction {
+    /// A press shorter than this counts as a tap. About a third of a second:
+    /// longer than a quick tap, shorter than holding the key to say even one word.
+    static let tapLength: TimeInterval = 0.35
+
+    /// Turns a key press or release into start, stop or nothing.
+    ///
+    /// The key works two ways without a setting. Hold it and talk, and letting
+    /// go stops the recording, like a walkie-talkie. Tap it instead, and the
+    /// recording stays on like a light switch until the next press. The only
+    /// difference is how long the key was down (`heldFor`) when it came back up.
+    /// `isRecording` is whether a recording really started, which is what stops
+    /// a "stop" with nothing to stop.
+    func recordingCommand(isRecording: Bool, heldFor: TimeInterval) -> RecordingCommand {
+        switch self {
+        case .press:
+            // Pressing while it's already recording is the second press of a tap
+            return isRecording ? .stop : .start
+        case .release:
+            guard isRecording else { return .nothing }
+            return heldFor < Self.tapLength ? .nothing : .stop
+        case .passthrough:
+            return .nothing
+        }
+    }
+}
+
 /// Pure logic handler for hotkey state machine, extracted for testability
 struct HotkeyEventHandler {
     /// Whether the hotkey is currently held down
@@ -81,10 +115,21 @@ final class HotkeyManager {
     /// Called when the hotkey is released
     var onHotkeyUp: (() -> Void)?
 
+    /// Called when the Stream Deck key is pushed
+    var onStreamDeckPush: (() -> Void)?
+
     private var eventTap: CFMachPort?
     private var runLoopSource: CFRunLoopSource?
     private var tapThread: Thread?
     private var eventHandler = HotkeyEventHandler()
+
+    /// A second talk key, just for my Stream Deck: F20. My real talk key is
+    /// Right Command on its own, and a Stream Deck button can't send a lone
+    /// Command key. My keyboard has no F20, so nothing else will ever press it.
+    /// (90 is the Mac's number for the F20 key.)
+    static let streamDeckKey = HotkeyBinding(keyCode: 90, modifierFlags: 0, isModifierOnly: false)
+    /// Its own press/release tracking, so the two keys can't confuse each other
+    private var streamDeckHandler = HotkeyEventHandler()
 
     private init() {}
 
@@ -138,6 +183,7 @@ final class HotkeyManager {
         tapThread?.cancel()
         tapThread = nil
         eventHandler.isHotkeyPressed = false
+        streamDeckHandler.isHotkeyPressed = false
     }
 
     /// Handle a CGEvent and determine if it matches the hotkey
@@ -152,6 +198,21 @@ final class HotkeyManager {
         let binding = AppSettings.shared.hotkeyBinding
         let keyCode = UInt16(event.getIntegerValueField(.keyboardEventKeycode))
         let flags = event.flags
+
+        // The Stream Deck key gets checked first. Each push flips the recording
+        // on or off, however long the button stays down. A deck button is slower
+        // to come back up than a keyboard key, so timing it like a tap made me
+        // hold it. Letting go means nothing, and F20 is swallowed so no other
+        // app sees it.
+        if keyCode == Self.streamDeckKey.keyCode {
+            let deckAction = streamDeckHandler.handleRegularHotkey(
+                type: type, keyCode: keyCode, flags: flags, binding: Self.streamDeckKey
+            )
+            if deckAction == .press {
+                DispatchQueue.main.async { [weak self] in self?.onStreamDeckPush?() }
+            }
+            return nil
+        }
 
         let action: HotkeyAction
         if binding.isModifierOnly {

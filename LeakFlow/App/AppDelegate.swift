@@ -16,6 +16,10 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
         textOutput: textOutputManager
     )
     private var recordingIndicator: RecordingIndicatorWindow?
+    /// True only while a recording really started and hasn't been stopped yet
+    private var isRecording = false
+    /// When the key last went down, to tell a quick tap from a hold
+    private var keyWentDownAt = Date()
     private var cancellables = Set<AnyCancellable>()
 
     func applicationDidFinishLaunching(_ notification: Notification) {
@@ -65,11 +69,21 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
         let hotkeyManager = HotkeyManager.shared
 
         hotkeyManager.onHotkeyDown = { [weak self] in
-            self?.startRecording()
+            self?.keyMoved(.press)
         }
 
         hotkeyManager.onHotkeyUp = { [weak self] in
-            self?.stopRecordingAndTranscribe()
+            self?.keyMoved(.release)
+        }
+
+        // One push starts it, the next push stops it
+        hotkeyManager.onStreamDeckPush = { [weak self] in
+            guard let self else { return }
+            if self.isRecording {
+                self.stopRecordingAndTranscribe()
+            } else {
+                self.startRecording()
+            }
         }
 
         hotkeyManager.start()
@@ -115,9 +129,25 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
 
     // MARK: - Recording Pipeline
 
+    /// The key went down or came up. Holding it records until I let go.
+    /// A quick tap keeps recording until I press it again.
+    private func keyMoved(_ action: HotkeyAction) {
+        let heldFor = Date().timeIntervalSince(keyWentDownAt)
+        if action == .press {
+            keyWentDownAt = Date()
+        }
+
+        switch action.recordingCommand(isRecording: isRecording, heldFor: heldFor) {
+        case .start: startRecording()
+        case .stop: stopRecordingAndTranscribe()
+        case .nothing: break
+        }
+    }
+
     private func startRecording() {
         do {
             try recordingPipeline.startRecording()
+            isRecording = true
             menuBarManager?.setRecording(true)
             recordingIndicator?.showIndicator()
 
@@ -130,6 +160,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
     }
 
     private func stopRecordingAndTranscribe() {
+        isRecording = false
         menuBarManager?.setRecording(false)
         recordingIndicator?.hideIndicator()
 
