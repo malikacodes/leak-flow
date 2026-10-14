@@ -18,6 +18,11 @@ struct SettingsView: View {
                     Label("Models", systemImage: "cpu")
                 }
 
+            MyWordsSettingsTab(settings: settings)
+                .tabItem {
+                    Label("My Words", systemImage: "character.book.closed")
+                }
+
             StatusSettingsTab(permissionManager: permissionManager, modelDownloader: modelDownloader, settings: settings)
                 .tabItem {
                     Label("Status", systemImage: "info.circle")
@@ -139,6 +144,40 @@ struct ModelSettingsTab: View {
                     }
                     .padding(.vertical, 4)
                 }
+            }
+        }
+        .formStyle(.grouped)
+    }
+}
+
+/// My Words: spellings Whisper should know, and fixes for when it still misses
+struct MyWordsSettingsTab: View {
+    @ObservedObject var settings: AppSettings
+
+    var body: some View {
+        Form {
+            Section {
+                TextEditor(text: $settings.myWordsText)
+                    .font(.body)
+                    .frame(height: 64)
+            } header: {
+                Text("Words")
+            } footer: {
+                Text("One per line. Names and spellings Whisper should know, like Malika or MCIT.")
+                    .font(.caption)
+                    .foregroundColor(.secondary)
+            }
+
+            Section {
+                TextEditor(text: $settings.wordFixesText)
+                    .font(.body)
+                    .frame(height: 64)
+            } header: {
+                Text("Fixes")
+            } footer: {
+                Text("One per line, like: sims four -> Sims 4")
+                    .font(.caption)
+                    .foregroundColor(.secondary)
             }
         }
         .formStyle(.grouped)

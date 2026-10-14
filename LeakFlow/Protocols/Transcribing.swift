@@ -9,9 +9,11 @@ protocol Transcribing {
     func loadModel(at path: String) throws
 
     /// Transcribe audio samples to text
-    /// - Parameter samples: Float32 PCM audio samples at 16kHz
+    /// - Parameters:
+    ///   - samples: Float32 PCM audio samples at 16kHz
+    ///   - prompt: Words to hint at before listening (from My Words), or nil
     /// - Returns: Transcribed text string
-    func transcribe(samples: [Float]) async throws -> String
+    func transcribe(samples: [Float], prompt: String?) async throws -> String
 
     /// Unload the current model and free resources
     func unloadModel()

@@ -15,6 +15,10 @@ final class RecordingPipeline {
     /// To read it: log show --last 1h --predicate 'subsystem == "com.malikapixels.leakflow"'
     private let log = Logger(subsystem: "com.malikapixels.leakflow", category: "recording")
 
+    /// My word list and fixes. AppDelegate refreshes this from Settings
+    /// before each transcription, so edits count from the next recording.
+    var myWords = MyWords()
+
     /// Called when an error occurs during the pipeline
     var onError: ((Error) -> Void)?
 
@@ -59,8 +63,8 @@ final class RecordingPipeline {
         isProcessing = true
 
         do {
-            let text = try await transcriber.transcribe(samples: samples)
-            let trimmed = text.trimmingCharacters(in: .whitespacesAndNewlines)
+            let text = try await transcriber.transcribe(samples: samples, prompt: myWords.prompt)
+            let trimmed = myWords.applyFixes(to: text).trimmingCharacters(in: .whitespacesAndNewlines)
 
             // Short seconds means the recording stopped early (key or mic).
             // Plenty of seconds and few words means Whisper dropped them.

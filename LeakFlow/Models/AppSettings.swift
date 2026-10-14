@@ -17,6 +17,8 @@ final class AppSettings: ObservableObject {
         static let copyToClipboardEnabled = "copyToClipboardEnabled"
         static let playSoundsEnabled = "playSoundsEnabled"
         static let launchAtLogin = "launchAtLogin"
+        static let myWordsText = "myWordsText"
+        static let wordFixesText = "wordFixesText"
     }
 
     /// The currently configured hotkey binding
@@ -61,6 +63,21 @@ final class AppSettings: ObservableObject {
         }
     }
 
+    /// My Words, one word or name per line, exactly as typed in Settings
+    @Published var myWordsText: String {
+        didSet { defaults.set(myWordsText, forKey: Keys.myWordsText) }
+    }
+
+    /// Fixes, one "heard -> write" per line, exactly as typed in Settings
+    @Published var wordFixesText: String {
+        didSet { defaults.set(wordFixesText, forKey: Keys.wordFixesText) }
+    }
+
+    /// Both boxes read into a list the pipeline can use
+    var myWords: MyWords {
+        MyWords(wordsText: myWordsText, fixesText: wordFixesText)
+    }
+
     private convenience init() {
         self.init(defaults: .standard)
     }
@@ -88,6 +105,8 @@ final class AppSettings: ObservableObject {
         self.copyToClipboardEnabled = defaults.object(forKey: Keys.copyToClipboardEnabled) as? Bool ?? true
         self.playSoundsEnabled = defaults.object(forKey: Keys.playSoundsEnabled) as? Bool ?? true
         self.launchAtLogin = defaults.object(forKey: Keys.launchAtLogin) as? Bool ?? false
+        self.myWordsText = defaults.string(forKey: Keys.myWordsText) ?? ""
+        self.wordFixesText = defaults.string(forKey: Keys.wordFixesText) ?? ""
     }
 
     private func updateLaunchAtLogin() {
