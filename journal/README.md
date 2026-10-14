@@ -13,3 +13,4 @@ commands written out so I can do it again.
 | 04 | October 8, 2026 | [The app that only heard "you"](04-the-app-that-only-heard-you.md) |
 | 05 | October 8, 2026 | [One key, two ways to talk](05-one-key-two-ways-to-talk.md) |
 | 06 | October 13, 2026 | [The missing endings](06-the-missing-endings.md) |
+| 08 | October 14, 2026 | [Crickets chirping](08-crickets-chirping.md) |
