@@ -123,4 +123,40 @@ final class RecordingPipelineTests: XCTestCase {
         XCTAssertEqual(mockOutput.outputCallCount, 0)
         XCTAssertFalse(pipeline.isProcessing)
     }
+
+    // Protects against pasting Whisper's silence label. The real Small model
+    // gives back exactly "[BLANK_AUDIO]" for a silent recording.
+    func testStopAndTranscribe_blankAudio_doesNotOutput() async {
+        mockRecorder.samplesToReturn = [0.1, 0.2, 0.3]
+        mockTranscriber.isModelLoaded = true
+        mockTranscriber.textToReturn = "[BLANK_AUDIO]"
+        var completed: String?
+        pipeline.onTranscriptionComplete = { completed = $0 }
+        await pipeline.stopRecordingAndTranscribe(autoPaste: true, copyToClipboard: true)
+        XCTAssertEqual(mockOutput.outputCallCount, 0)
+        XCTAssertNil(completed, "nothing should land in the last 5 recordings either")
+        XCTAssertFalse(pipeline.isProcessing)
+    }
+
+    // MARK: - withoutSoundLabels
+
+    // A faint hiss came back as "(crickets chirping)" from the real model,
+    // so a result that's only parentheses counts as nothing.
+    func testSoundLabels_onlyParentheses_becomesEmpty() {
+        XCTAssertEqual(RecordingPipeline.withoutSoundLabels("(crickets chirping)"), "")
+        XCTAssertEqual(RecordingPipeline.withoutSoundLabels(" (music) [BLANK_AUDIO] "), "")
+    }
+
+    // The filter must never eat my words: a label next to speech goes, but
+    // real parentheses in the middle of a sentence stay.
+    func testSoundLabels_keepsSpeech() {
+        XCTAssertEqual(
+            RecordingPipeline.withoutSoundLabels("Send it today. [BLANK_AUDIO] Thanks."),
+            "Send it today. Thanks."
+        )
+        XCTAssertEqual(
+            RecordingPipeline.withoutSoundLabels("The notes (see below) are done."),
+            "The notes (see below) are done."
+        )
+    }
 }
