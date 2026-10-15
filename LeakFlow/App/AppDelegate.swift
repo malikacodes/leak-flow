@@ -168,6 +168,8 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
             NSSound.pop?.play()
         }
 
+        recordingPipeline.myWords = AppSettings.shared.myWords
+
         Task {
             await recordingPipeline.stopRecordingAndTranscribe(
                 autoPaste: AppSettings.shared.autoPasteEnabled,

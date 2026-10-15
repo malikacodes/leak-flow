@@ -9,6 +9,7 @@ final class MockTranscriber: Transcribing {
     var loadModelShouldThrow: Error?
     var transcribeCallCount = 0
     var lastTranscribedSamples: [Float]?
+    var lastPrompt: String?
     /// Runs in the middle of transcribe, so a test can keep it "busy" for a while
     var beforeReturning: (() async -> Void)?
 
@@ -17,9 +18,10 @@ final class MockTranscriber: Transcribing {
         isModelLoaded = true
     }
 
-    func transcribe(samples: [Float]) async throws -> String {
+    func transcribe(samples: [Float], prompt: String?) async throws -> String {
         transcribeCallCount += 1
         lastTranscribedSamples = samples
+        lastPrompt = prompt
         if let error = transcribeShouldThrow { throw error }
         await beforeReturning?()
         return textToReturn

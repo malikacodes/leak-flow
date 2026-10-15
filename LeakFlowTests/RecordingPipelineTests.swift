@@ -115,6 +115,29 @@ final class RecordingPipelineTests: XCTestCase {
         XCTAssertEqual(mockOutput.outputCallCount, 0)
     }
 
+    // Protects the My Words hookup: the word list reaches Whisper as its hint,
+    // and the fixes run on what comes back before it gets pasted.
+    func testStopAndTranscribe_usesMyWords() async {
+        mockRecorder.samplesToReturn = [0.1, 0.2, 0.3]
+        mockTranscriber.isModelLoaded = true
+        mockTranscriber.textToReturn = "I play sims four."
+        pipeline.myWords = MyWords(wordsText: "Malika\nLeak Flow", fixesText: "sims four -> Sims 4")
+        await pipeline.stopRecordingAndTranscribe(autoPaste: true, copyToClipboard: true)
+        XCTAssertEqual(mockTranscriber.lastPrompt, "Malika, Leak Flow.")
+        XCTAssertEqual(mockOutput.lastCopiedText, "I play Sims 4.")
+    }
+
+    // Protects the order where My Words meets the silence fix: sound labels
+    // come out first, so a fix can't turn "[BLANK_AUDIO]" into pasted words.
+    func testStopAndTranscribe_silenceWithFixes_pastesNothing() async {
+        mockRecorder.samplesToReturn = [0.1, 0.2, 0.3]
+        mockTranscriber.isModelLoaded = true
+        mockTranscriber.textToReturn = "[BLANK_AUDIO]"
+        pipeline.myWords = MyWords(wordsText: "", fixesText: "[blank_audio] -> hello")
+        await pipeline.stopRecordingAndTranscribe(autoPaste: true, copyToClipboard: true)
+        XCTAssertEqual(mockOutput.outputCallCount, 0)
+    }
+
     func testStopAndTranscribe_emptyTranscription_doesNotOutput() async {
         mockRecorder.samplesToReturn = [0.1, 0.2, 0.3]
         mockTranscriber.isModelLoaded = true

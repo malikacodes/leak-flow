@@ -42,6 +42,7 @@ in the [1.1 release notes](https://github.com/malikacodes/leak-flow/releases/tag
 | ✍️ **Types it for you** | Pastes the words where your cursor is, and keeps a copy on the clipboard too. |
 | 🔒 **Stays on your Mac** | No accounts, no cloud, no subscription. Your voice never leaves the computer. |
 | 👀 **Shows it's listening** | A little glass pearl on the left edge of the screen breathes and sends out soft ripples while it's recording, so you're never guessing. |
+| 📖 **Knows your words** | Teach it names and spellings it keeps getting wrong, and fix the ones it still misses. |
 | 🕘 **Remembers the last 5** | Click the rose dot in the menu bar to copy any of your last 5 recordings again. |
 | ⬇️ **Sets itself up** | Downloads the speech model the first time it opens. |
 | 🚀 **Opens with your Mac** | If you want it to. |
@@ -118,6 +119,10 @@ Click the menu bar icon, then **Settings**:
 - **Stream Deck:** F20 is built in and isn't in Settings yet. I picked it
   because my talk key is Right Command on its own, and a Stream Deck
   hotkey can't be just a Command key.
+- **My Words:** one word per line, like your name or a class code, and
+  Whisper leans toward those spellings. Under **Fixes**, a line like
+  `sims four -> Sims 4` swaps the words after Whisper is done. Both stay
+  on your Mac.
 - **Auto-paste:** switch off if you only want it copied, not pasted.
 - **Sound effects:** a little sound when it starts and stops listening.
 - **Launch at login:** opens Leak Flow when you log in.

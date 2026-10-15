@@ -46,11 +46,11 @@ final class WhisperTranscriber: Transcribing {
     /// Doing it here, in the background, means you never feel that delay.
     private func warmUp() {
         let silence = [Float](repeating: 0, count: 16_000) // 1 second of quiet (16,000 samples = 1 second)
-        Task { _ = try? await transcribe(samples: silence) }
+        Task { _ = try? await transcribe(samples: silence, prompt: nil) }
     }
 
     /// Transcribe audio samples to text
-    func transcribe(samples: [Float]) async throws -> String {
+    func transcribe(samples: [Float], prompt: String?) async throws -> String {
         guard let context = whisperContext else {
             throw TranscriberError.noModelLoaded
         }
@@ -84,8 +84,22 @@ final class WhisperTranscriber: Transcribing {
                 // and after a longer recording a shorter one lost its last few words.
                 // The same audio came back whole with the full window.
 
-                let result = samples.withUnsafeBufferPointer { bufferPointer in
-                    whisper_full(ctx, params, bufferPointer.baseAddress, Int32(samples.count))
+                // My Words, handed over as the hint Whisper reads before listening.
+                // whisper.cpp only borrows the text, so it has to run inside
+                // withCString: outside that block the C copy of the string is gone.
+                func run(_ params: whisper_full_params) -> Int32 {
+                    samples.withUnsafeBufferPointer { bufferPointer in
+                        whisper_full(ctx, params, bufferPointer.baseAddress, Int32(samples.count))
+                    }
+                }
+                let result: Int32
+                if let prompt {
+                    result = prompt.withCString { promptPointer in
+                        params.initial_prompt = promptPointer
+                        return run(params)
+                    }
+                } else {
+                    result = run(params)
                 }
 
                 if result != 0 {

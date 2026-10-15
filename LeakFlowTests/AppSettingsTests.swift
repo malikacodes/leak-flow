@@ -71,4 +71,16 @@ final class AppSettingsTests: XCTestCase {
         let reloaded = AppSettings(defaults: defaults)
         XCTAssertEqual(reloaded.hotkeyBinding, binding)
     }
+
+    // MARK: - My Words
+
+    // Protects My Words from disappearing when the app quits: both boxes
+    // have to come back exactly as typed.
+    func testMyWords_persistAcrossLaunches() {
+        settings.myWordsText = "Malika\nMCIT"
+        settings.wordFixesText = "sims four -> Sims 4"
+        let reopened = AppSettings(defaults: defaults)
+        XCTAssertEqual(reopened.myWordsText, "Malika\nMCIT")
+        XCTAssertEqual(reopened.myWords.fixes, [MyWords.Fix(heard: "sims four", write: "Sims 4")])
+    }
 }
