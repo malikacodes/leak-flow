@@ -64,7 +64,9 @@ final class RecordingPipeline {
 
         do {
             let text = try await transcriber.transcribe(samples: samples, prompt: myWords.prompt)
-            let trimmed = myWords.applyFixes(to: text).trimmingCharacters(in: .whitespacesAndNewlines)
+            // Sound labels come out before my fixes run, so a fix never sees them.
+            let trimmed = myWords.applyFixes(to: Self.withoutSoundLabels(text))
+                .trimmingCharacters(in: .whitespacesAndNewlines)
 
             // Short seconds means the recording stopped early (key or mic).
             // Plenty of seconds and few words means Whisper dropped them.
@@ -85,6 +87,26 @@ final class RecordingPipeline {
             onError?(error)
             isProcessing = false
         }
+    }
+
+    /// Takes out the labels Whisper writes when it hears sound but no words.
+    ///
+    /// Whisper learned from subtitles, so when there's nothing to say it captions
+    /// the room instead. With the Small model, 3 seconds of silence came back as
+    /// "[BLANK_AUDIO]", a faint hiss as "(crickets chirping)" and a steady tone as
+    /// "(electronic beeping)". All of those used to get pasted.
+    ///
+    /// Square brackets go wherever they show up: Whisper only uses them for these
+    /// labels, and I never dictate brackets. Parentheses are trickier, since they
+    /// can be real punctuation, so those only go when they're the whole result.
+    /// A real "(see below)" in the middle of a sentence stays.
+    static func withoutSoundLabels(_ text: String) -> String {
+        let noBrackets = text
+            .replacingOccurrences(of: #"\s*\[[^\]]*\]"#, with: "", options: .regularExpression)
+            .trimmingCharacters(in: .whitespacesAndNewlines)
+
+        let onlyParentheses = noBrackets.range(of: #"^(\([^)]*\)\s*)+$"#, options: .regularExpression) != nil
+        return onlyParentheses ? "" : noBrackets
     }
 }
 
