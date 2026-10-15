@@ -84,12 +84,18 @@ final class WhisperTranscriber: Transcribing {
                 // and after a longer recording a shorter one lost its last few words.
                 // The same audio came back whole with the full window.
 
+                // Half a second of quiet tacked onto the end. When I let go of the
+                // key right on my last word, the audio stops mid-word and Whisper
+                // treats it as unfinished and leaves it out. A 10 second clip lost
+                // "a great job" every time; with this padding it came back whole.
+                let padded = samples + [Float](repeating: 0, count: 8_000) // 8,000 samples = half a second
+
                 // My Words, handed over as the hint Whisper reads before listening.
                 // whisper.cpp only borrows the text, so it has to run inside
                 // withCString: outside that block the C copy of the string is gone.
                 func run(_ params: whisper_full_params) -> Int32 {
-                    samples.withUnsafeBufferPointer { bufferPointer in
-                        whisper_full(ctx, params, bufferPointer.baseAddress, Int32(samples.count))
+                    padded.withUnsafeBufferPointer { bufferPointer in
+                        whisper_full(ctx, params, bufferPointer.baseAddress, Int32(padded.count))
                     }
                 }
                 let result: Int32
