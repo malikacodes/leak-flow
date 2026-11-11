@@ -15,3 +15,4 @@ commands written out so I can do it again.
 | 06 | October 13, 2026 | [The missing endings](06-the-missing-endings.md) |
 | 07 | October 14, 2026 | [Teaching it my words](07-my-words.md) |
 | 08 | October 14, 2026 | [Crickets chirping](08-crickets-chirping.md) |
+| 09 | October 15, 2026 | [The missing endings, part two](09-the-missing-endings-part-two.md) |
